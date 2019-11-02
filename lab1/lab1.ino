@@ -13,7 +13,7 @@
 
 Button Buttons[] = { INC_R, INC_G, INC_B, DEC_R, DEC_G, DEC_B };
 int Pins[] = {R_OUT, G_OUT,B_OUT};
-int RGBV[] = { 0, 0, 0 };
+int RGB_Values[] = { 0, 0, 0 };
 
 void setup()
 {
@@ -30,10 +30,10 @@ void loop()
         if (Buttons[i].wasPressed())
         {
           if(i<3){
-            RGBV[i%3] = min(RGBV[i%3] + DELTA, 250);
+            RGB_Values[i%3] = min(RGB_Values[i%3] + DELTA, 250);
           }
           else {
-            RGBV[i%3] = max(RGBV[i%3] - DELTA, 0);
+            RGB_Values[i%3] = max(RGB_Values[i%3] - DELTA, 0);
             }
         }
     }
@@ -45,6 +45,6 @@ void set_rgb_led()
 {
    for (int i = 0; i < 3; ++i)
   {
-    analogWrite(Pins[i], RGBV[i]);
+    analogWrite(Pins[i], RGB_Values[i]);
   }
 }
