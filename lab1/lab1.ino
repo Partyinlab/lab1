@@ -1,28 +1,27 @@
-#include "pitches.h"
-#include "button.h"
 #include "buzzer.h"
 
-#define PIN_BUZZER 6
-#define PIN_BUTTON_OFF 5
+#define R_OUT 5
+#define G_OUT 6
+#define B_OUT 7
 
-Button buttonOff(PIN_BUTTON_OFF);
-Buzzer buzzer(PIN_BUZZER);
+void setup()
+{
 
-
-int notes[] = {NOTE_G3, NOTE_SILENCE, NOTE_G3, NOTE_SILENCE, NOTE_G3, NOTE_SILENCE, NOTE_DS3, NOTE_SILENCE};
-double durations[] = {8, 8, 1, 8, 1, 8, 1, 24};
-int melodyLength = 8;
-
-void setup() {
-    buzzer.setMelody(notes, durations, melodyLength);
-    buzzer.turnSoundOn();
+    pinMode(R_OUT, OUTPUT);
+    pinMode(G_OUT, OUTPUT);
+    pinMode(B_OUT, OUTPUT);
 }
 
-void loop() {
-  
-    buzzer.playSound();
-    if (buttonOff.wasPressed())
-    {
-        buzzer.turnSoundOff();
-    }
+void loop() 
+{
+    set_rgb_led(rgb);
+}
+
+
+void set_rgb_led(colorData rgb)
+{
+    analogWrite(R_OUT, 255 - rgb.value[TCS230_RGB_R]);
+    analogWrite(G_OUT, 255 - rgb.value[TCS230_RGB_G]);
+    analogWrite(B_OUT, 255 - rgb.value[TCS230_RGB_B]);
+
 }
